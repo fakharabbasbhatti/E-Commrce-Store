@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { FiShoppingCart } from "react-icons/fi";
 import Logo from "../../assets/Images/logomob.png";
 
 const Navbar = () => {
@@ -10,7 +11,6 @@ const Navbar = () => {
 
   const toggleMenu = () => setOpen(!open);
 
-  // Add shadow and blur on scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
@@ -64,18 +64,15 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Desktop Buttons */}
-        <div className="hidden md:flex space-x-4">
-          <Link to="/login">
-            <button className="px-5 py-2 border border-white text-white rounded-lg font-semibold hover:bg-white hover:text-[#00B29C] transition-all duration-300 shadow-sm">
-              Login
-            </button>
-          </Link>
-          <Link to="/signup">
-            <button className="px-5 py-2 bg-white text-[#00B29C] rounded-lg font-semibold hover:bg-[#002B5B] hover:text-white transition-all duration-300 shadow-sm">
-              Sign Up
-            </button>
-          </Link>
+        {/* Desktop Cart Button */}
+        <div className="hidden md:flex">
+          <Link
+  to="/cart"
+  className="flex items-center justify-center px-4 py-2 rounded-lg bg-white text-[#00B29C] border border-transparent hover:bg-[#00B29C] hover:text-white hover:border-white transition-all duration-300 shadow-md"
+>
+  <FiShoppingCart size={20} className="mr-2" /> Cart
+</Link>
+
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -113,18 +110,16 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Mobile Buttons */}
-        <div className="flex flex-col space-y-3 pt-8 w-4/5">
-          <Link to="/login" onClick={toggleMenu}>
-            <button className="w-full px-5 py-2 border border-[#00B29C] text-[#00B29C] rounded-lg font-semibold hover:bg-[#00B29C] hover:text-white transition-all duration-300 shadow-md">
-              Login
-            </button>
-          </Link>
-          <Link to="/signup" onClick={toggleMenu}>
-            <button className="w-full px-5 py-2 bg-[#00B29C] text-white rounded-lg font-semibold hover:bg-[#009482] transition-all duration-300 shadow-md">
-              Sign Up
-            </button>
-          </Link>
+        {/* Mobile Cart Button */}
+        <div className="flex flex-col pt-8 w-4/5">
+          <Link
+  to="/cart"
+  onClick={toggleMenu}
+  className="w-full flex items-center justify-center px-5 py-3 rounded-lg bg-white text-[#00B29C] border border-transparent hover:bg-[#00B29C] hover:text-white hover:border-white transition-all duration-300 shadow-md"
+>
+  <FiShoppingCart size={20} className="mr-2" /> Cart
+</Link>
+
         </div>
       </div>
     </nav>
