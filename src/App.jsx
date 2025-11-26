@@ -18,11 +18,12 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Login from "./component/comman/Login";
 import SignUp from "./component/comman/SignUp";
+import Cart from "./redux/slices/Cart";
 
 // ✅ Layout component (Navbar + Footer always visible)
 const Layout = () => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow">
         <Outlet />
@@ -42,8 +43,9 @@ const router = createBrowserRouter([
       { path: "about", element: <About /> },
       { path: "services", element: <Services /> },
       { path: "contact", element: <Contact /> },
-      { path: "login", element: <Login/> },
-      { path: "signup", element: <SignUp/> },
+      { path: "login", element: <Login /> },
+      { path: "signup", element: <SignUp /> },
+      { path: "cart", element: <Cart /> },
     ],
   },
 ]);
