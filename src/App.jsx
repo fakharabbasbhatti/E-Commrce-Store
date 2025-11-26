@@ -1,17 +1,18 @@
 // src/App.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
   Outlet,
 } from "react-router-dom";
+
 import "./App.css";
 
-// Import components
+// Components
 import Navbar from "./component/comman/Navbar";
 import Footer from "./component/comman/Footer";
 
-// Import pages
+// Pages
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -33,7 +34,9 @@ const Layout = () => {
   );
 };
 
-// ✅ Define router with nested routes
+// --------------------------------------------------------
+// Router
+// --------------------------------------------------------
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,9 +53,17 @@ const router = createBrowserRouter([
   },
 ]);
 
-// ✅ App component provides the router
-function App() {
+// --------------------------------------------------------
+// MAIN APP — Loader First
+// --------------------------------------------------------
+export default function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3000); // 3 sec loader
+  }, []);
+
+  if (loading) return <LoaderScreen />;
+
   return <RouterProvider router={router} />;
 }
-
-export default App;
