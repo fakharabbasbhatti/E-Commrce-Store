@@ -63,7 +63,7 @@ export default function App() {
     setTimeout(() => setLoading(false), 3000); // 3 sec loader
   }, []);
 
-  if (loading) return <LoaderScreen />;
+  // if (loading) return <LoaderScreen />;
 
   return <RouterProvider router={router} />;
 }
