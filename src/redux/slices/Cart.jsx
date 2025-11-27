@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, updateCartQuantity, clearCart } from '../../redux/slices/servicesSlice';
 import { Link } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const CartItem = ({ item, handleRemove, handleQuantityChange, getItemPrice }) => (
-  <div key={item.id} className="flex items-center border-b border-gray-200 py-6 last:border-b-0">
-    <img 
-      src={item.image} 
-      alt={item.title} 
-      className="w-20 h-20 object-cover rounded-lg shadow-md"
+  <div
+    key={item.id}
+    className="flex items-center border-b border-gray-200 py-6 last:border-b-0 hover:shadow-lg transition-shadow rounded-xl px-4"
+    data-aos="fade-up"
+    data-aos-delay="100"
+  >
+    <img
+      src={item.image}
+      alt={item.title}
+      className="w-20 h-20 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
     />
     <div className="flex-1 ml-6">
       <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
@@ -17,8 +24,8 @@ const CartItem = ({ item, handleRemove, handleQuantityChange, getItemPrice }) =>
       <p className="text-green-600 font-semibold">Total: ${getItemPrice(item)}</p>
     </div>
     <div className="flex items-center space-x-4">
-      <div className="flex items-center border border-gray-300 rounded-lg">
-        <button 
+      <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+        <button
           onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
           className="px-3 py-2 text-gray-600 hover:bg-gray-100 transition-colors"
           disabled={item.quantity <= 1}
@@ -26,14 +33,14 @@ const CartItem = ({ item, handleRemove, handleQuantityChange, getItemPrice }) =>
           -
         </button>
         <span className="px-4 py-2 text-gray-800 font-semibold">{item.quantity}</span>
-        <button 
+        <button
           onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
           className="px-3 py-2 text-gray-600 hover:bg-gray-100 transition-colors"
         >
           +
         </button>
       </div>
-      <button 
+      <button
         onClick={() => handleRemove(item.id)}
         className="text-red-600 hover:text-red-800 font-semibold ml-4 transition-colors"
       >
@@ -44,26 +51,26 @@ const CartItem = ({ item, handleRemove, handleQuantityChange, getItemPrice }) =>
 );
 
 const CartSummary = ({ totalPrice, handleClearCart }) => (
-  <div className="bg-gray-50 px-6 py-6 border-t border-gray-200">
+  <div className="bg-gray-50 px-6 py-6 border-t border-gray-200 rounded-b-xl" data-aos="fade-up" data-aos-delay="200">
     <div className="flex justify-between items-center mb-4">
       <span className="text-xl font-semibold text-gray-900">Total Amount:</span>
       <span className="text-2xl font-bold text-green-600">${totalPrice}</span>
     </div>
-    <div className="flex justify-between space-x-4">
-      <button 
+    <div className="flex justify-between space-x-4 flex-wrap">
+      <button
         onClick={handleClearCart}
-        className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+        className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow"
       >
         Clear Cart
       </button>
-      <button className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
+      <button className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow">
         Proceed to Checkout
       </button>
     </div>
     <div className="mt-4 text-center">
-      <Link 
-        to="/services" 
-        className="text-blue-600 hover:text-blue-800 font-semibold transition-colors"
+      <Link
+        to="/services"
+        className="text-blue-600 hover:text-blue-800 font-semibold transition-colors text-lg"
       >
         ← Continue Shopping
       </Link>
@@ -75,64 +82,62 @@ const Cart = () => {
   const { cart } = useSelector(state => state.services);
   const dispatch = useDispatch();
 
-  const handleRemoveFromCart = (serviceId) => {
-    dispatch(removeFromCart(serviceId));
-  };
+  useEffect(() => {
+    AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true });
+  }, []);
 
-  const handleQuantityChange = (serviceId, newQuantity) => {
+  const handleRemoveFromCart = (serviceId) => dispatch(removeFromCart(serviceId));
+  const handleQuantityChange = (serviceId, newQuantity) =>
     dispatch(updateCartQuantity({ id: serviceId, quantity: newQuantity }));
-  };
 
-  const getTotalPrice = () => {
-    return cart.reduce((total, item) => {
-      const price = parseFloat(item.price.replace('Starting from $', '')) || 0;
-      return total + (price * item.quantity);
-    }, 0).toFixed(2);
-  };
+  const getTotalPrice = () =>
+    cart
+      .reduce((total, item) => {
+        const price = parseFloat(item.price.replace('Starting from $', '')) || 0;
+        return total + price * item.quantity;
+      }, 0)
+      .toFixed(2);
 
   const getItemPrice = (item) => {
     const price = parseFloat(item.price.replace('Starting from $', '')) || 0;
     return (price * item.quantity).toFixed(2);
   };
 
-  const handleClearCart = () => {
-    dispatch(clearCart());
-  };
+  const handleClearCart = () => dispatch(clearCart());
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Cart</h1>
-        
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-teal-100 pt-20 pb-12">
+      <div className="max-w-4xl mx-auto px-4">
+        <h1 className="text-4xl font-bold text-[#16B9A4] mb-10 text-center" data-aos="fade-down">
+          🛒 Your Cart
+        </h1>
+
         {cart.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="text-gray-400 text-6xl mb-4">🛒</div>
+          <div className="text-center py-12" data-aos="fade-up">
+            <div className="text-gray-400 text-6xl mb-4 animate-bounce">🛒</div>
             <h2 className="text-2xl font-semibold text-gray-700 mb-4">Your cart is empty</h2>
             <p className="text-gray-500 mb-8">Add some services or accessories to get started!</p>
-            <Link 
-              to="/services" 
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+            <Link
+              to="/services"
+              className="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              Browse Services
+              Back to Services
             </Link>
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div className="p-6">
+          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden" data-aos="fade-up">
+            <div className="p-6 space-y-4">
               {cart.map(item => (
-                <CartItem 
+                <CartItem
                   key={item.id}
-                  item={item} 
-                  handleRemove={handleRemoveFromCart} 
-                  handleQuantityChange={handleQuantityChange} 
-                  getItemPrice={getItemPrice} 
+                  item={item}
+                  handleRemove={handleRemoveFromCart}
+                  handleQuantityChange={handleQuantityChange}
+                  getItemPrice={getItemPrice}
                 />
               ))}
             </div>
-            <CartSummary 
-              totalPrice={getTotalPrice()} 
-              handleClearCart={handleClearCart} 
-            />
+            <CartSummary totalPrice={getTotalPrice()} handleClearCart={handleClearCart} />
           </div>
         )}
       </div>
