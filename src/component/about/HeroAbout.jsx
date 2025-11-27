@@ -1,78 +1,117 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { FiShoppingCart, FiChevronRight } from "react-icons/fi";
+import { FaShieldAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const HeroAbout = () => {
+export default function Hero() {
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out",
+      once: true,
+    });
   }, []);
 
   return (
-    <section className="relative flex items-center justify-center text-center h-[90vh] overflow-hidden bg-[#DDFBF5]">
+    <section
+      className="relative overflow-hidden min-h-[100vh] flex items-center justify-center px-4 md:px-12 py-24 bg-gradient-to-br from-teal-50 to-teal-100"
+    >
+      {/* 🔹 Background Blobs */}
+      <div className="absolute top-[-120px] left-[-100px] w-[520px] h-[520px] bg-teal-400/20 blur-[210px] rounded-full animate-pulse-slow"></div>
+      <div className="absolute bottom-[-80px] right-[-80px] w-[460px] h-[460px] bg-teal-600/10 blur-[200px] rounded-full animate-pulse-slow"></div>
 
-      {/* Overlay Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#00BFA6]/50 via-[#00BFA6]/50 to-[#00BFA6]/50"></div>
+      {/* 🔹 Hero Content */}
+      <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10">
+        
+        {/* LEFT TEXT CONTENT */}
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+          <h1
+            data-aos="fade-up"
+            className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight text-gray-900"
+          >
+            About <span className="text-teal-600">Our Accessories Store</span>
+          </h1>
 
-      {/* CONTENT */}
-      <div className="relative z-10 container mx-auto px-3 md:px-6 flex flex-col items-center justify-center text-white">
-        {/* Main Heading */}
-        <h1
-          data-aos="fade-up"
-          data-aos-delay="200"
-          className="text-5xl md:text-7xl font-extrabold mb-3 md:mb-6 leading-tight tracking-tight drop-shadow-lg"
-        >
-          About Our Store
-        </h1>
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="mt-6 text-lg md:text-xl leading-relaxed max-w-xl text-gray-700"
+          >
+            We provide high-quality Mobile Accessories designed to make
+            your smartphone experience smarter, safer, and more stylish.
+            From protective cases to premium chargers — everything is picked
+            with care for your comfort.
+          </p>
 
-        {/* Sub Heading */}
-        <p
-          data-aos="fade-up"
-          data-aos-delay="400"
-          className="text-lg md:text-2xl max-w-3xl mx-auto text-gray-100 font-light drop-shadow-sm"
-        >
-          Premium Mobile Accessories designed to upgrade your everyday
-          lifestyle — combining quality, performance, and style.
-        </p>
+          <p
+            data-aos="fade-up"
+            data-aos-delay="350"
+            className="mt-4 text-lg md:text-lg leading-relaxed max-w-xl text-gray-600"
+          >
+            Our mission is simple — **top-quality accessories**, affordable
+            pricing, long-lasting durability, and the latest trendy designs
+            you’ll love using every day.
+          </p>
 
-        {/* Decorative Line */}
-        <div
-          data-aos="zoom-in"
-          data-aos-delay="600"
-          className="mt-8 w-28 h-1 bg-[#00B39C] rounded-full shadow-lg"
-        ></div>
+          {/* BUTTONS */}
+          <div
+            data-aos="zoom-in"
+            data-aos-delay="450"
+            className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4"
+          >
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-3 px-6 md:px-8 py-3 rounded-full shadow-lg text-base font-medium transition-all duration-300 hover:-translate-y-[2px] bg-teal-600 text-white hover:bg-teal-700"
+            >
+              <FiShoppingCart /> Shop Now
+            </Link>
 
-        {/* CTA Button */}
-        <div
-          data-aos="flip-left"
-          data-aos-delay="800"
-          className="mt-20 md:mt-26"
-        >
-          <Link to="/services" className="px-8 py-3 bg-[#00BFA6] hover:bg-[#101828] transition-all duration-500 text-white font-semibold rounded-full shadow-md hover:shadow-2xl transform hover:scale-105 hover:-translate-y-1">
-            Learn More
-          </Link>
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full border-2 border-teal-600 transition-all duration-300 text-base font-medium hover:bg-teal-100 text-teal-600"
+            >
+              Learn More <FiChevronRight />
+            </Link>
+          </div>
+
+          {/* HIGHLIGHTS */}
+          <ul
+            data-aos="fade-up"
+            data-aos-delay="600"
+            className="hidden md:flex mt-8 flex-wrap gap-3 text-sm md:text-base justify-center lg:justify-start"
+          >
+            <li className="inline-flex items-center gap-2 px-5 py-2 rounded-full shadow-sm bg-teal-100 text-teal-800 font-medium">
+              <FaShieldAlt className="text-teal-600" /> Premium Quality Products
+            </li>
+            <li className="inline-flex items-center gap-2 px-5 py-2 rounded-full shadow-sm bg-teal-100 text-teal-800 font-medium">
+              <FaShieldAlt className="text-teal-600" /> Fast & Safe Delivery
+            </li>
+            <li className="inline-flex items-center gap-2 px-5 py-2 rounded-full shadow-sm bg-teal-100 text-teal-800 font-medium">
+              <FaShieldAlt className="text-teal-600" /> Latest Trendy Designs
+            </li>
+          </ul>
         </div>
+
+        {/* RIGHT IMAGE */}
+        <div className="relative w-full max-w-2xl group" data-aos="fade-left">
+          <img
+            src="abh.png"
+            alt="Mobile Accessories"
+            className="w-full h-auto md:h-[450px] lg:h-[500px] rounded-md shadow-2xl object-cover transition-transform duration-700 group-hover:scale-95 opacity-90"
+          />
+
+          {/* Border Animations */}
+          <span className="absolute top-0 left-0 w-0 h-[2px] bg-teal-600 transition-all duration-500 group-hover:w-full"></span>
+          <span className="absolute bottom-0 right-0 w-0 h-[2px] bg-teal-600 transition-all duration-500 group-hover:w-full"></span>
+          <span className="absolute bottom-0 left-0 w-[2px] h-0 bg-teal-600 transition-all duration-500 group-hover:h-full"></span>
+          <span className="absolute top-0 right-0 w-[2px] h-0 bg-teal-600 transition-all duration-500 group-hover:h-full"></span>
+
+          <div className="absolute -bottom-6 left-12 w-32 h-2 rounded-full transition-all duration-500 group-hover:w-48 bg-teal-600"></div>
+        </div>
+
       </div>
-
-      {/* Animated Floating Shapes */}
-      <div className="absolute top-20 left-16 w-40 h-40 bg-[#00A3E8]/20 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-10 right-20 w-56 h-56 bg-[#00A3E8]/25 rounded-full blur-3xl animate-pulse"></div>
-
-      {/* Bottom Wave Shape */}
-      <svg
-        className="hidden md:block absolute bottom-[-1px] left-0 w-full z-0"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1440 320"
-      >
-        <path
-          fill="#E0F7F4"
-          fillOpacity="1"
-          d="M0,256L80,234.7C160,213,320,171,480,149.3C640,128,800,128,960,144C1120,160,1280,192,1360,208L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
-        ></path>
-      </svg>
-
     </section>
   );
-};
-
-export default HeroAbout;
+}
