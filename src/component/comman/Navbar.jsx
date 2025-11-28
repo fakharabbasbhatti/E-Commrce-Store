@@ -31,11 +31,11 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-16">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2 select-none">
-          <img src={Logo} alt="Mobilia Logo" className="h-10 w-auto object-contain drop-shadow-sm" />
+          <img src={Logo} alt="Mobilia Logo" className="h-14 w-auto object-contain drop-shadow-sm" />
         </Link>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-10 text-white text-[16px] font-medium tracking-wide">
+        <ul className="hidden md:flex space-x-10 text-white text-[20px] font-medium tracking-wide">
           {menuItems.map((item) => (
             <li key={item} className="relative group">
               <Link
@@ -55,7 +55,7 @@ const Navbar = () => {
         <div className="hidden md:flex">
           <Link
             to="/cart"
-            className="relative flex items-center justify-center px-4 py-2 rounded-lg bg-white text-[#00B29C] border border-transparent hover:bg-[#00B29C] hover:text-white hover:border-white transition-all duration-300 shadow-md"
+            className="relative text-lg flex items-center justify-center px-4 py-2 rounded-lg bg-white text-[#00B29C] border border-transparent hover:bg-[#00B29C] hover:text-white hover:border-white transition-all duration-300 shadow-md"
           >
             <FiShoppingCart size={20} className="mr-2" /> 
             Cart
@@ -81,7 +81,7 @@ const Navbar = () => {
       <div
         className={`md:hidden fixed top-0 left-0 w-full h-screen bg-[#002B5B]/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-8 transform transition-all duration-500 ${open ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}
       >
-        <ul className="flex flex-col items-center space-y-6 text-lg font-medium text-white">
+        <ul className="flex flex-col items-center space-y-6 text-2xl font-medium text-white">
           {menuItems.map((item) => (
             <li key={item}>
               <Link
@@ -100,9 +100,9 @@ const Navbar = () => {
           <Link
             to="/cart"
             onClick={toggleMenu}
-            className="relative w-full flex items-center justify-center px-5 py-3 rounded-lg bg-white text-[#00B29C] border border-transparent hover:bg-[#00B29C] hover:text-white hover:border-white transition-all duration-300 shadow-md"
+            className="relative text-2xl font-medium w-full flex items-center justify-center px-5 py-3 rounded-lg bg-white text-[#00B29C] border border-transparent hover:bg-[#00B29C] hover:text-white hover:border-white transition-all duration-300 shadow-md"
           >
-            <FiShoppingCart size={20} className="mr-2" /> 
+            <FiShoppingCart size={30} className="mr-2" /> 
             Cart
             {cartItemCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">

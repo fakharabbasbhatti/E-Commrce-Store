@@ -45,7 +45,7 @@ const Footer = () => {
       <div className="relative max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-14">
         {/* Store Info */}
         <div data-aos="fade-up" className="space-y-4">
-          <img src={logo} alt="Mobile Accessories Store Logo" className="h-12 w-auto" />
+          <img src={logo} alt="Mobile Accessories Store Logo" className="h-14 w-auto" />
           <p className="text-white/90 text-sm leading-relaxed">
             Welcome to <span className="font-semibold text-white">Mobile Accessories Store</span>! Find trendy phone cases, fast chargers, power banks, and high-quality earbuds — everything to keep your devices stylish and functional.
           </p>
